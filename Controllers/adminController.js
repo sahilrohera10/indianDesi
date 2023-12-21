@@ -77,14 +77,23 @@ async function uploadProduct(req, res, next) {
   }
 }
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 async function getFoodByType(req, res) {
   const { selectedMeal } = req.params;
   console.log("here");
   try {
     const meals = await adminModel.find({ type: selectedMeal });
 
-    const shuffledMeals = meals.sort(() => Math.random() - 0.5);
-    res.status(200).json("hello");
+    const shuffledMeals = shuffleArray(meals);
+    console.log("data=>", shuffledMeals);
+    res.status(200).json({ data: shuffledMeals });
   } catch (error) {
     console.log(error);
   }
