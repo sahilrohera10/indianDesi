@@ -15,7 +15,7 @@ async function signUp(req, res) {
     const data = await userModel.create({
       name: body.name,
       email: body.email,
-      Password: body.Password,
+      password: body.password,
     });
     console.log(data);
     res.status(200).json({ data: data });
